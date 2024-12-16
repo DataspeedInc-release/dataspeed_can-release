@@ -33,8 +33,6 @@
  *********************************************************************/
 
 #include <rosbag2_cpp/reader.hpp>
-#include <can_msgs/msg/frame.hpp>
-#include <dataspeed_can_msgs/msg/frame.hpp>
 #include <map>
 
 #include "CanExtractor.h"
@@ -164,6 +162,54 @@ int main(int argc, char** argv)
       auto msg = std::make_shared<dataspeed_can_msgs::msg::Frame>();
       rclcpp::SerializedMessage serialized_message(*m->serialized_data);
       rclcpp::Serialization<dataspeed_can_msgs::msg::Frame> serialization;
+      serialization.deserialize_message(&serialized_message, msg.get());
+
+      dataspeed_can_tools::RosCanMsgStruct can_msg;
+      can_msg.id = msg->id | (msg->extended ? 0x80000000 : 0x00000000);
+      extractor.getMessage(can_msg);
+      extractor.pubMessage(msg, rclcpp::Time(m->rosbag2_storage_send_time_stamp));
+      stamp = rclcpp::Time(msg->header.stamp, RCL_SYSTEM_TIME);
+    } else if (topic_type_map[m->topic_name] == "dataspeed_can_msgs/msg/Frame16") {
+      // Deserialize m into the message type
+      auto msg = std::make_shared<dataspeed_can_msgs::msg::Frame16>();
+      rclcpp::SerializedMessage serialized_message(*m->serialized_data);
+      rclcpp::Serialization<dataspeed_can_msgs::msg::Frame16> serialization;
+      serialization.deserialize_message(&serialized_message, msg.get());
+
+      dataspeed_can_tools::RosCanMsgStruct can_msg;
+      can_msg.id = msg->id | (msg->extended ? 0x80000000 : 0x00000000);
+      extractor.getMessage(can_msg);
+      extractor.pubMessage(msg, rclcpp::Time(m->rosbag2_storage_send_time_stamp));
+      stamp = rclcpp::Time(msg->header.stamp, RCL_SYSTEM_TIME);
+    } else if (topic_type_map[m->topic_name] == "dataspeed_can_msgs/msg/Frame32") {
+      // Deserialize m into the message type
+      auto msg = std::make_shared<dataspeed_can_msgs::msg::Frame32>();
+      rclcpp::SerializedMessage serialized_message(*m->serialized_data);
+      rclcpp::Serialization<dataspeed_can_msgs::msg::Frame32> serialization;
+      serialization.deserialize_message(&serialized_message, msg.get());
+
+      dataspeed_can_tools::RosCanMsgStruct can_msg;
+      can_msg.id = msg->id | (msg->extended ? 0x80000000 : 0x00000000);
+      extractor.getMessage(can_msg);
+      extractor.pubMessage(msg, rclcpp::Time(m->rosbag2_storage_send_time_stamp));
+      stamp = rclcpp::Time(msg->header.stamp, RCL_SYSTEM_TIME);
+    } else if (topic_type_map[m->topic_name] == "dataspeed_can_msgs/msg/Frame48") {
+      // Deserialize m into the message type
+      auto msg = std::make_shared<dataspeed_can_msgs::msg::Frame48>();
+      rclcpp::SerializedMessage serialized_message(*m->serialized_data);
+      rclcpp::Serialization<dataspeed_can_msgs::msg::Frame48> serialization;
+      serialization.deserialize_message(&serialized_message, msg.get());
+
+      dataspeed_can_tools::RosCanMsgStruct can_msg;
+      can_msg.id = msg->id | (msg->extended ? 0x80000000 : 0x00000000);
+      extractor.getMessage(can_msg);
+      extractor.pubMessage(msg, rclcpp::Time(m->rosbag2_storage_send_time_stamp));
+      stamp = rclcpp::Time(msg->header.stamp, RCL_SYSTEM_TIME);
+    } else if (topic_type_map[m->topic_name] == "dataspeed_can_msgs/msg/Frame64") {
+      // Deserialize m into the message type
+      auto msg = std::make_shared<dataspeed_can_msgs::msg::Frame64>();
+      rclcpp::SerializedMessage serialized_message(*m->serialized_data);
+      rclcpp::Serialization<dataspeed_can_msgs::msg::Frame64> serialization;
       serialization.deserialize_message(&serialized_message, msg.get());
 
       dataspeed_can_tools::RosCanMsgStruct can_msg;
