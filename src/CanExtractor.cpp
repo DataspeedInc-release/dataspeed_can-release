@@ -329,12 +329,55 @@ void CanExtractor::pubCanMsg(const RosCanMsgStruct& info, const can_msgs::msg::F
     info.message_pub->publish(*serialized_msg);
   }
 }
-
 void CanExtractor::pubCanMsg(const RosCanMsgStruct& info, const dataspeed_can_msgs::msg::Frame& msg, const rclcpp::Time& stamp) {
   if (offline_) {
     writeToBag(info.msg_name, stamp, msg);
   } else {
     rclcpp::Serialization<dataspeed_can_msgs::msg::Frame> serialization;
+    auto serialized_msg = std::make_shared<rclcpp::SerializedMessage>();
+
+    serialization.serialize_message(&msg, serialized_msg.get());
+    info.message_pub->publish(*serialized_msg);
+  }
+}
+void CanExtractor::pubCanMsg(const RosCanMsgStruct& info, const dataspeed_can_msgs::msg::Frame16& msg, const rclcpp::Time& stamp) {
+  if (offline_) {
+    writeToBag(info.msg_name, stamp, msg);
+  } else {
+    rclcpp::Serialization<dataspeed_can_msgs::msg::Frame16> serialization;
+    auto serialized_msg = std::make_shared<rclcpp::SerializedMessage>();
+
+    serialization.serialize_message(&msg, serialized_msg.get());
+    info.message_pub->publish(*serialized_msg);
+  }
+}
+void CanExtractor::pubCanMsg(const RosCanMsgStruct& info, const dataspeed_can_msgs::msg::Frame32& msg, const rclcpp::Time& stamp) {
+  if (offline_) {
+    writeToBag(info.msg_name, stamp, msg);
+  } else {
+    rclcpp::Serialization<dataspeed_can_msgs::msg::Frame32> serialization;
+    auto serialized_msg = std::make_shared<rclcpp::SerializedMessage>();
+
+    serialization.serialize_message(&msg, serialized_msg.get());
+    info.message_pub->publish(*serialized_msg);
+  }
+}
+void CanExtractor::pubCanMsg(const RosCanMsgStruct& info, const dataspeed_can_msgs::msg::Frame48& msg, const rclcpp::Time& stamp) {
+  if (offline_) {
+    writeToBag(info.msg_name, stamp, msg);
+  } else {
+    rclcpp::Serialization<dataspeed_can_msgs::msg::Frame48> serialization;
+    auto serialized_msg = std::make_shared<rclcpp::SerializedMessage>();
+
+    serialization.serialize_message(&msg, serialized_msg.get());
+    info.message_pub->publish(*serialized_msg);
+  }
+}
+void CanExtractor::pubCanMsg(const RosCanMsgStruct& info, const dataspeed_can_msgs::msg::Frame64& msg, const rclcpp::Time& stamp) {
+  if (offline_) {
+    writeToBag(info.msg_name, stamp, msg);
+  } else {
+    rclcpp::Serialization<dataspeed_can_msgs::msg::Frame64> serialization;
     auto serialized_msg = std::make_shared<rclcpp::SerializedMessage>();
 
     serialization.serialize_message(&msg, serialized_msg.get());
@@ -418,8 +461,79 @@ void CanExtractor::pubMessage(const can_msgs::msg::Frame& msg, const rclcpp::Tim
     pubCanMsgSignals(info, std::vector<uint8_t>(msg.data.begin(), msg.data.end()), stamp);
   }
 }
-
 void CanExtractor::pubMessage(const dataspeed_can_msgs::msg::Frame& msg, const rclcpp::Time &stamp)
+{
+  // Check for valid message information
+  const uint32_t id = msg.id | (msg.extended ? 0x80000000 : 0x00000000);
+  if (msgs_.find(id) == msgs_.end()) {
+    RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "Skipping unknown message ID: 0x%03X", id);
+    return;
+  }
+  const RosCanMsgStruct &info = msgs_[id];
+
+  // Re-publish CAN message on named topic
+  pubCanMsg(info, msg, stamp);
+
+  // Publish individual expanded signals
+  if (expand_) {
+    pubCanMsgSignals(info, std::vector<uint8_t>(msg.data.begin(), msg.data.end()), stamp);
+  }
+}
+void CanExtractor::pubMessage(const dataspeed_can_msgs::msg::Frame16& msg, const rclcpp::Time &stamp)
+{
+  // Check for valid message information
+  const uint32_t id = msg.id | (msg.extended ? 0x80000000 : 0x00000000);
+  if (msgs_.find(id) == msgs_.end()) {
+    RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "Skipping unknown message ID: 0x%03X", id);
+    return;
+  }
+  const RosCanMsgStruct &info = msgs_[id];
+
+  // Re-publish CAN message on named topic
+  pubCanMsg(info, msg, stamp);
+
+  // Publish individual expanded signals
+  if (expand_) {
+    pubCanMsgSignals(info, std::vector<uint8_t>(msg.data.begin(), msg.data.end()), stamp);
+  }
+}
+void CanExtractor::pubMessage(const dataspeed_can_msgs::msg::Frame32& msg, const rclcpp::Time &stamp)
+{
+  // Check for valid message information
+  const uint32_t id = msg.id | (msg.extended ? 0x80000000 : 0x00000000);
+  if (msgs_.find(id) == msgs_.end()) {
+    RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "Skipping unknown message ID: 0x%03X", id);
+    return;
+  }
+  const RosCanMsgStruct &info = msgs_[id];
+
+  // Re-publish CAN message on named topic
+  pubCanMsg(info, msg, stamp);
+
+  // Publish individual expanded signals
+  if (expand_) {
+    pubCanMsgSignals(info, std::vector<uint8_t>(msg.data.begin(), msg.data.end()), stamp);
+  }
+}
+void CanExtractor::pubMessage(const dataspeed_can_msgs::msg::Frame48& msg, const rclcpp::Time &stamp)
+{
+  // Check for valid message information
+  const uint32_t id = msg.id | (msg.extended ? 0x80000000 : 0x00000000);
+  if (msgs_.find(id) == msgs_.end()) {
+    RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "Skipping unknown message ID: 0x%03X", id);
+    return;
+  }
+  const RosCanMsgStruct &info = msgs_[id];
+
+  // Re-publish CAN message on named topic
+  pubCanMsg(info, msg, stamp);
+
+  // Publish individual expanded signals
+  if (expand_) {
+    pubCanMsgSignals(info, std::vector<uint8_t>(msg.data.begin(), msg.data.end()), stamp);
+  }
+}
+void CanExtractor::pubMessage(const dataspeed_can_msgs::msg::Frame64& msg, const rclcpp::Time &stamp)
 {
   // Check for valid message information
   const uint32_t id = msg.id | (msg.extended ? 0x80000000 : 0x00000000);
