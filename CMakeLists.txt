@@ -8,6 +8,10 @@ find_package(std_msgs REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Frame.msg"
+  "msg/Frame16.msg"
+  "msg/Frame32.msg"
+  "msg/Frame48.msg"
+  "msg/Frame64.msg"
   DEPENDENCIES
   "std_msgs"
 )
