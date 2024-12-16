@@ -2,6 +2,12 @@
 Changelog for package dataspeed_can_tools
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.0.5 (2024-10-08)
+------------------
+* Add CAN-FD messages with fixed size data arrays
+* Update DBC tools for new fixed sizes
+* Contributors: Kevin Hallenbeck
+
 2.0.4 (2024-07-25)
 ------------------
 * Added parameter declarations to DBC node
