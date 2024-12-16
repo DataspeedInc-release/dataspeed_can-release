@@ -43,6 +43,7 @@
 #include <rosbag2_cpp/writer.hpp>
 // #include <ros/package.h>
 
+// Output message types
 #include <std_msgs/msg/bool.hpp>
 #include <std_msgs/msg/u_int8.hpp>
 #include <std_msgs/msg/u_int16.hpp>
@@ -54,8 +55,14 @@
 #include <std_msgs/msg/int64.hpp>
 #include <std_msgs/msg/float64.hpp>
 
+// Input message types
 #include <can_msgs/msg/frame.hpp>
 #include <dataspeed_can_msgs/msg/frame.hpp>
+#include <dataspeed_can_msgs/msg/frame16.hpp>
+#include <dataspeed_can_msgs/msg/frame32.hpp>
+#include <dataspeed_can_msgs/msg/frame48.hpp>
+#include <dataspeed_can_msgs/msg/frame64.hpp>
+
 #include "DbcIterator.hpp"
 
 namespace dataspeed_can_tools
@@ -94,8 +101,16 @@ public:
   // bool closeBag();
   void pubMessage(const can_msgs::msg::Frame& msg, const rclcpp::Time &stamp = rclcpp::Time(0));
   void pubMessage(const dataspeed_can_msgs::msg::Frame& msg, const rclcpp::Time &stamp = rclcpp::Time(0));
+  void pubMessage(const dataspeed_can_msgs::msg::Frame16& msg, const rclcpp::Time &stamp = rclcpp::Time(0));
+  void pubMessage(const dataspeed_can_msgs::msg::Frame32& msg, const rclcpp::Time &stamp = rclcpp::Time(0));
+  void pubMessage(const dataspeed_can_msgs::msg::Frame48& msg, const rclcpp::Time &stamp = rclcpp::Time(0));
+  void pubMessage(const dataspeed_can_msgs::msg::Frame64& msg, const rclcpp::Time &stamp = rclcpp::Time(0));
   void pubMessage(const can_msgs::msg::Frame::ConstSharedPtr& msg, const rclcpp::Time &stamp = rclcpp::Time(0)) { pubMessage(*msg, stamp); }
   void pubMessage(const dataspeed_can_msgs::msg::Frame::ConstSharedPtr& msg, const rclcpp::Time &stamp = rclcpp::Time(0)) { pubMessage(*msg, stamp); }
+  void pubMessage(const dataspeed_can_msgs::msg::Frame16::ConstSharedPtr& msg, const rclcpp::Time &stamp = rclcpp::Time(0)) { pubMessage(*msg, stamp); }
+  void pubMessage(const dataspeed_can_msgs::msg::Frame32::ConstSharedPtr& msg, const rclcpp::Time &stamp = rclcpp::Time(0)) { pubMessage(*msg, stamp); }
+  void pubMessage(const dataspeed_can_msgs::msg::Frame48::ConstSharedPtr& msg, const rclcpp::Time &stamp = rclcpp::Time(0)) { pubMessage(*msg, stamp); }
+  void pubMessage(const dataspeed_can_msgs::msg::Frame64::ConstSharedPtr& msg, const rclcpp::Time &stamp = rclcpp::Time(0)) { pubMessage(*msg, stamp); }
 
 private:
   template<class T>
@@ -105,6 +120,10 @@ private:
   void pubCanMsgSignals(const RosCanMsgStruct &info, const std::vector<uint8_t>& buffer, const rclcpp::Time &stamp);
   void pubCanMsg(const RosCanMsgStruct& info, const can_msgs::msg::Frame& msg, const rclcpp::Time& stamp);
   void pubCanMsg(const RosCanMsgStruct& info, const dataspeed_can_msgs::msg::Frame& msg, const rclcpp::Time& stamp);
+  void pubCanMsg(const RosCanMsgStruct& info, const dataspeed_can_msgs::msg::Frame16& msg, const rclcpp::Time& stamp);
+  void pubCanMsg(const RosCanMsgStruct& info, const dataspeed_can_msgs::msg::Frame32& msg, const rclcpp::Time& stamp);
+  void pubCanMsg(const RosCanMsgStruct& info, const dataspeed_can_msgs::msg::Frame48& msg, const rclcpp::Time& stamp);
+  void pubCanMsg(const RosCanMsgStruct& info, const dataspeed_can_msgs::msg::Frame64& msg, const rclcpp::Time& stamp);
   static uint64_t unsignedSignalData(const std::vector<uint8_t> &buffer, const RosCanSigStruct& sig_props);
   static int64_t signedSignalData(const std::vector<uint8_t> &buffer, const RosCanSigStruct& sig_props);
   template<class T>
