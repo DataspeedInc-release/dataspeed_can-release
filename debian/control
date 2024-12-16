@@ -1,0 +1,12 @@
+Source: ros-humble-dataspeed-can-msg-filters
+Section: misc
+Priority: optional
+Maintainer: Kevin Hallenbeck <khallenbeck@dataspeedinc.com>
+Build-Depends: debhelper (>= 9.0.0), ros-humble-ament-cmake, ros-humble-ament-cmake-gtest <!nocheck>, ros-humble-can-msgs, ros-humble-rclcpp, ros-humble-ros-workspace
+Homepage: http://dataspeedinc.com
+Standards-Version: 3.9.2
+
+Package: ros-humble-dataspeed-can-msg-filters
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-humble-can-msgs, ros-humble-rclcpp, ros-humble-ros-workspace
+Description: Time synchronize multiple CAN messages to get a single callback
