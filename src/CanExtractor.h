@@ -92,8 +92,8 @@ typedef struct {
 
 class CanExtractor {
 public:
-  CanExtractor(const std::string &dbc_file, bool offline, bool expand = true, bool unknown = false);
-  CanExtractor(const std::vector<std::string> &dbc_file, bool offline, bool expand = true, bool unknown = false);
+  CanExtractor(const std::string &dbc_file, bool offline, bool expand = true, bool unknown = false, bool copy = true);
+  CanExtractor(const std::vector<std::string> &dbc_file, bool offline, bool expand = true, bool unknown = false, bool copy = true);
 
   bool getMessage(RosCanMsgStruct& can_msg);
   void initPublishers(RosCanMsgStruct& info, rclcpp::Node& node);
@@ -135,10 +135,11 @@ private:
   bool offline_;
   std::unique_ptr<rosbag2_cpp::Writer> bag_;
 
-  bool bag_open_;
+  bool bag_open_ = false;
   std::string bag_fname_;
   bool expand_;
   bool unknown_;
+  bool copy_;
 
   std::map<uint32_t, RosCanMsgStruct> msgs_;
   std::map<uint32_t, int> unknown_msgs_;
