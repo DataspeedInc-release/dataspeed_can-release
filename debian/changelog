@@ -1,0 +1,29 @@
+ros-humble-dataspeed-can-msgs (2.0.6-1jammy) jammy; urgency=high
+
+
+
+ -- Kevin Hallenbeck <khallenbeck@dataspeedinc.com>  Wed, 12 Mar 2025 04:00:00 -0000
+
+ros-humble-dataspeed-can-msgs (2.0.5-1jammy) jammy; urgency=high
+
+  * Add CAN-FD messages with fixed size data arrays
+    Update DBC tools for new fixed sizes
+    PlotJuggler can't import large amounts of messages with dynamic sized arrays
+  * Contributors: Kevin Hallenbeck
+
+ -- Kevin Hallenbeck <khallenbeck@dataspeedinc.com>  Tue, 08 Oct 2024 04:00:00 -0000
+
+ros-humble-dataspeed-can-msgs (2.0.4-1jammy) jammy; urgency=high
+
+
+
+ -- Kevin Hallenbeck <khallenbeck@dataspeedinc.com>  Thu, 25 Jul 2024 04:00:00 -0000
+
+ros-humble-dataspeed-can-msgs (2.0.3-1jammy) jammy; urgency=high
+
+  * Add dataspeed_can_msgs package for CAN-FD message
+  * Contributors: Kevin Hallenbeck
+
+ -- Kevin Hallenbeck <khallenbeck@dataspeedinc.com>  Tue, 11 Jul 2023 04:00:00 -0000
+
+

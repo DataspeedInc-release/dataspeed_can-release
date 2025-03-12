@@ -1,0 +1,12 @@
+Source: ros-humble-dataspeed-can-msgs
+Section: misc
+Priority: optional
+Maintainer: Kevin Hallenbeck <khallenbeck@dataspeedinc.com>
+Build-Depends: debhelper (>= 9.0.0), ros-humble-ament-cmake, ros-humble-rosidl-default-generators, ros-humble-std-msgs, ros-humble-ros-workspace, ros-humble-rosidl-typesupport-fastrtps-c, ros-humble-rosidl-typesupport-fastrtps-cpp
+Homepage: http://dataspeedinc.com
+Standards-Version: 3.9.2
+
+Package: ros-humble-dataspeed-can-msgs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-humble-rosidl-default-runtime, ros-humble-std-msgs, ros-humble-ros-workspace
+Description: Controller Area Network (CAN) messages
