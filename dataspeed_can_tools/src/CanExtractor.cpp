@@ -38,22 +38,11 @@
 
 namespace dataspeed_can_tools {
 
-CanExtractor::CanExtractor(const std::string &dbc_file, bool offline, bool expand, bool unknown) :
-    dbc_(dbc_file), offline_(offline), bag_(new rosbag2_cpp::Writer())
-{
-  bag_open_ = false;
-  expand_ = expand;
-  unknown_ = unknown;
-}
+CanExtractor::CanExtractor(const std::string &dbc_file, bool offline, bool expand, bool unknown, bool copy) :
+    dbc_(dbc_file), offline_(offline), bag_(new rosbag2_cpp::Writer()), expand_(expand), unknown_(unknown), copy_(copy) {}
 
-CanExtractor::CanExtractor(const std::vector<std::string> &dbc_file, bool offline, bool expand, bool unknown) :
-    dbc_(dbc_file), offline_(offline), bag_(new rosbag2_cpp::Writer())
-{
-  bag_open_ = false;
-  expand_ = expand;
-  unknown_ = unknown;
-}
-
+CanExtractor::CanExtractor(const std::vector<std::string> &dbc_file, bool offline, bool expand, bool unknown, bool copy) :
+    dbc_(dbc_file), offline_(offline), bag_(new rosbag2_cpp::Writer()), expand_(expand), unknown_(unknown), copy_(copy) {}
 
 
 uint64_t CanExtractor::unsignedSignalData(const std::vector<uint8_t> &buffer, const RosCanSigStruct& sig_props)
@@ -454,7 +443,9 @@ void CanExtractor::pubMessage(const can_msgs::msg::Frame& msg, const rclcpp::Tim
   const RosCanMsgStruct &info = msgs_[id];
 
   // Re-publish CAN message on named topic
-  pubCanMsg(info, msg, stamp);
+  if (copy_) {
+    pubCanMsg(info, msg, stamp);
+  }
 
   // Publish individual expanded signals
   if (expand_) {
@@ -472,7 +463,9 @@ void CanExtractor::pubMessage(const dataspeed_can_msgs::msg::Frame& msg, const r
   const RosCanMsgStruct &info = msgs_[id];
 
   // Re-publish CAN message on named topic
-  pubCanMsg(info, msg, stamp);
+  if (copy_) {
+    pubCanMsg(info, msg, stamp);
+  }
 
   // Publish individual expanded signals
   if (expand_) {
@@ -490,7 +483,9 @@ void CanExtractor::pubMessage(const dataspeed_can_msgs::msg::Frame16& msg, const
   const RosCanMsgStruct &info = msgs_[id];
 
   // Re-publish CAN message on named topic
-  pubCanMsg(info, msg, stamp);
+  if (copy_) {
+    pubCanMsg(info, msg, stamp);
+  }
 
   // Publish individual expanded signals
   if (expand_) {
@@ -508,7 +503,9 @@ void CanExtractor::pubMessage(const dataspeed_can_msgs::msg::Frame32& msg, const
   const RosCanMsgStruct &info = msgs_[id];
 
   // Re-publish CAN message on named topic
-  pubCanMsg(info, msg, stamp);
+  if (copy_) {
+    pubCanMsg(info, msg, stamp);
+  }
 
   // Publish individual expanded signals
   if (expand_) {
@@ -526,7 +523,9 @@ void CanExtractor::pubMessage(const dataspeed_can_msgs::msg::Frame48& msg, const
   const RosCanMsgStruct &info = msgs_[id];
 
   // Re-publish CAN message on named topic
-  pubCanMsg(info, msg, stamp);
+  if (copy_) {
+    pubCanMsg(info, msg, stamp);
+  }
 
   // Publish individual expanded signals
   if (expand_) {
@@ -544,7 +543,9 @@ void CanExtractor::pubMessage(const dataspeed_can_msgs::msg::Frame64& msg, const
   const RosCanMsgStruct &info = msgs_[id];
 
   // Re-publish CAN message on named topic
-  pubCanMsg(info, msg, stamp);
+  if (copy_) {
+    pubCanMsg(info, msg, stamp);
+  }
 
   // Publish individual expanded signals
   if (expand_) {
