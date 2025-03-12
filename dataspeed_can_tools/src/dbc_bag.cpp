@@ -39,7 +39,7 @@
 
 void printHelp() {
   printf("Usage: dbc_bag <bag_file> <topic> <dbc_file> [dbc_files]... [-O output_file]\n");
-  printf("  [--unknown / -u] [--expand / -e]\n");
+  printf("  [--unknown / -u] [--expand / -e] [--no-copy]\n");
 }
 
 int main(int argc, char** argv)
@@ -51,6 +51,7 @@ int main(int argc, char** argv)
   std::vector<std::string> dbc_files;
   bool _expand = false;
   bool _unknown = false;
+  bool _copy = true;
 
   // Parse command line arguments
   unsigned int count = 0;
@@ -63,6 +64,8 @@ int main(int argc, char** argv)
       _unknown = true;
     } else if (str == "--expand" || str == "-e") {
       _expand = true;
+    } else if (str == "--no-copy") {
+      _copy = false;
     } else if (str == "-O") {
       i++;
       if (i < argc) {
@@ -123,7 +126,7 @@ int main(int argc, char** argv)
   for (size_t i = 0; i < dbc_files.size(); i++) {
     printf("  - %s\n", dbc_files[i].c_str());
   }
-  dataspeed_can_tools::CanExtractor extractor(dbc_files, true, _expand, _unknown);
+  dataspeed_can_tools::CanExtractor extractor(dbc_files, true, _expand, _unknown, _copy);
 
   printf("Opening output bag file: '%s'\n", bag_file_out.c_str());
   extractor.openBag(bag_file_out);
