@@ -2,6 +2,11 @@
 Changelog for package dataspeed_can_tools
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.0.6 (2025-03-12)
+------------------
+* Add DBC bag --no-copy option to leave out original CAN message when expanding into signals
+* Contributors: Kevin Hallenbeck
+
 2.0.5 (2024-10-08)
 ------------------
 * Add CAN-FD messages with fixed size data arrays
