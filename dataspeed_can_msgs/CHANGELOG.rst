@@ -2,6 +2,9 @@
 Changelog for package dataspeed_can_msgs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.0.6 (2025-03-12)
+------------------
+
 2.0.5 (2024-10-08)
 ------------------
 * Add CAN-FD messages with fixed size data arrays
