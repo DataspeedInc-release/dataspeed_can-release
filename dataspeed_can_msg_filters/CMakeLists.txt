@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.22)
 project(dataspeed_can_msg_filters)
 
-# Default to C++17
+# Default to C++20
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 17)
+  set(CMAKE_CXX_STANDARD 20)
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -16,8 +16,14 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 endif()
 
 find_package(ament_cmake REQUIRED)
-find_package(rclcpp REQUIRED)
 find_package(can_msgs REQUIRED)
+find_package(rclcpp REQUIRED)
+
+# Detect rclcpp version and revert back to C++17 for pre ROS Jazzy
+message(STATUS "rclcpp_VERSION ${rclcpp_VERSION}")
+if(rclcpp_VERSION VERSION_LESS "28.0.0")
+  set(CMAKE_CXX_STANDARD 17)
+endif()
 
 install(
   DIRECTORY include/${PROJECT_NAME}/
@@ -28,7 +34,10 @@ if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
   ament_add_gtest(${PROJECT_NAME}_test tests/test.cpp)
   target_include_directories(${PROJECT_NAME}_test PUBLIC include)
-  ament_target_dependencies(${PROJECT_NAME}_test "rclcpp" "can_msgs")
+  target_link_libraries(${PROJECT_NAME}_test
+    ${can_msgs_TARGETS}
+    rclcpp::rclcpp
+  )
 endif()
 
 ament_export_include_directories(include)

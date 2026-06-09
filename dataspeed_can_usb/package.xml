@@ -2,7 +2,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>dataspeed_can_usb</name>
-  <version>2.0.6</version>
+  <version>2.0.7</version>
   <description>
     Driver to interface with the Dataspeed Inc. USB CAN Tool
   </description>
@@ -16,11 +16,11 @@
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <depend>rclcpp</depend>
-  <depend>rclcpp_components</depend>
   <depend>std_msgs</depend>
   <depend>can_msgs</depend>
   <depend>lusb</depend>
+  <depend>rclcpp</depend>
+  <depend>rclcpp_components</depend>
 
   <test_depend>ament_cmake_gtest</test_depend>
 
