@@ -7,12 +7,24 @@
 
 #include <gtest/gtest.h>
 
-#include <ament_index_cpp/get_package_share_directory.hpp>
-
 // String stream
 #include <iostream>
 #include <fstream>
 #include <string>
+
+// File path
+#if __has_include(<ament_index_cpp/get_package_share_path.hpp>)
+#include <ament_index_cpp/get_package_share_path.hpp>
+std::string dbcFilePath() {
+  return ament_index_cpp::get_package_share_path("dataspeed_can_tools").string() + "/tests/Test.dbc";
+}
+#elif __has_include(<ament_index_cpp/get_package_share_directory.hpp>)
+#include <ament_index_cpp/get_package_share_directory.hpp>
+std::string dbcFilePath() {
+  return ament_index_cpp::get_package_share_directory("dataspeed_can_tools") + "/tests/Test.dbc";
+}
+#else
+#endif
 
 bool fileExists(const std::string& name) {
   std::ifstream f(name.c_str());
@@ -22,7 +34,7 @@ bool fileExists(const std::string& name) {
 // Check that parsing valid signals does not cause an error.
 TEST(ITERATOR, parsing)
 {
-  std::string file = ament_index_cpp::get_package_share_directory("dataspeed_can_tools")+"/tests/Test.dbc";
+  std::string file = dbcFilePath();
   ASSERT_TRUE(fileExists(file)) << "Could not find dbc file: " << file;
   try {
     DBCIterator dbc(file);
@@ -35,7 +47,7 @@ TEST(ITERATOR, parsing)
 // Check the values output by parsing valid signals.
 TEST(ITERATOR, data)
 {
-  std::string file = ament_index_cpp::get_package_share_directory("dataspeed_can_tools")+"/tests/Test.dbc";
+  std::string file = dbcFilePath();
   ASSERT_TRUE(fileExists(file)) << "Could not find dbc file: " << file;
   DBCIterator dbc(file);
 
