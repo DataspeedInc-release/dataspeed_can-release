@@ -1,3 +1,31 @@
+## dataspeed_can (lyrical) - 2.0.7-1
+
+The packages in the `dataspeed_can` repository were released into the `lyrical` distro by running `/usr/bin/bloom-release --ros-distro lyrical dataspeed_can` on `Tue, 09 Jun 2026 20:23:32 -0000`
+
+These packages were released:
+- `dataspeed_can`
+- `dataspeed_can_msg_filters`
+- `dataspeed_can_msgs`
+- `dataspeed_can_tools`
+- `dataspeed_can_usb`
+
+Version of package(s) in repository `dataspeed_can`:
+
+- upstream repository: https://bitbucket.org/dataspeedinc/dataspeed_can.git
+- release repository: unknown
+- rosdistro version: `null`
+- old version: `null`
+- new version: `2.0.7-1`
+
+Versions of tools used:
+
+- bloom version: `0.14.3`
+- catkin_pkg version: `1.1.0`
+- rosdep version: `0.26.0`
+- rosdistro version: `1.0.1`
+- vcstools version: `0.1.42`
+
+
 ## dataspeed_can (jazzy) - 2.0.7-1
 
 The packages in the `dataspeed_can` repository were released into the `jazzy` distro by running `/usr/bin/bloom-release --ros-distro jazzy dataspeed_can` on `Tue, 09 Jun 2026 20:17:34 -0000`
