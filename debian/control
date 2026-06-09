@@ -1,0 +1,12 @@
+Source: ros-lyrical-dataspeed-can-msgs
+Section: misc
+Priority: optional
+Maintainer: "Kevin Hallenbeck" <khallenbeck@dataspeedinc.com>
+Build-Depends: debhelper (>= 9.0.0), ros-lyrical-ament-cmake, ros-lyrical-rosidl-default-generators, ros-lyrical-std-msgs, ros-lyrical-ros-workspace, ros-lyrical-rosidl-typesupport-fastrtps-c, ros-lyrical-rosidl-typesupport-fastrtps-cpp
+Homepage: http://dataspeedinc.com
+Standards-Version: 3.9.2
+
+Package: ros-lyrical-dataspeed-can-msgs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-lyrical-rosidl-default-runtime, ros-lyrical-std-msgs, ros-lyrical-ros-workspace
+Description: Controller Area Network (CAN) messages
