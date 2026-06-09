@@ -2,6 +2,11 @@
 Changelog for package dataspeed_can
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.0.7 (2026-05-28)
+------------------
+* ROS Lyrical, C++20, CMake 3.22 minimum, replace ament_target_dependencies() with target_link_libraries()
+* Contributors: Kevin Hallenbeck
+
 2.0.6 (2025-03-12)
 ------------------
 
