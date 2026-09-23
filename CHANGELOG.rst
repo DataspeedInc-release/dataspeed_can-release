@@ -2,6 +2,11 @@
 Changelog for package dataspeed_can_usb
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.0.8 (2026-09-22)
+------------------
+* Add parameter server to change bitrate while running
+* Contributors: Ryan Kaddis
+
 2.0.7 (2026-05-28)
 ------------------
 * ROS Lyrical, C++20, CMake 3.22 minimum, replace ament_target_dependencies() with target_link_libraries()
