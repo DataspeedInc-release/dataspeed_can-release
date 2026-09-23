@@ -1,0 +1,12 @@
+Source: ros-lyrical-dataspeed-can
+Section: misc
+Priority: optional
+Maintainer: "Kevin Hallenbeck" <khallenbeck@dataspeedinc.com>
+Build-Depends: debhelper (>= 9.0.0), ros-lyrical-ament-cmake, ros-lyrical-ros-workspace
+Homepage: http://dataspeedinc.com
+Standards-Version: 3.9.2
+
+Package: ros-lyrical-dataspeed-can
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-lyrical-dataspeed-can-msg-filters, ros-lyrical-dataspeed-can-msgs, ros-lyrical-dataspeed-can-tools, ros-lyrical-dataspeed-can-usb, ros-lyrical-ros-workspace
+Description: CAN bus tools using Dataspeed hardware
