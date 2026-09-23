@@ -39,6 +39,7 @@
 // ROS messages
 #include <can_msgs/msg/frame.hpp>
 #include <std_msgs/msg/string.hpp> // Deprecated (ros >= foxy)
+#include <rcl_interfaces/msg/set_parameters_result.hpp>
 
 // Mutex
 #include <mutex>
@@ -67,6 +68,7 @@ private:
   void recvDevice(unsigned int channel, uint32_t id, bool extended, uint8_t dlc, const uint8_t data[8]);
   void serviceDevice();
   bool sampleTimeOffset(rclcpp::Duration &offset, rclcpp::Duration &delay);
+  rcl_interfaces::msg::SetParametersResult on_set_parameters(const std::vector<rclcpp::Parameter> &parameters);
 
   // Parameters
   bool sync_time_;
@@ -97,6 +99,9 @@ private:
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr pub_version_;
   std::vector<rclcpp::Publisher<can_msgs::msg::Frame>::SharedPtr> pubs_;
   std::vector<rclcpp::Publisher<can_msgs::msg::Frame>::SharedPtr> pubs_err_;
+
+  // Parameter callback
+  OnSetParametersCallbackHandle::SharedPtr param_cb_;
 
   // Mutex for vector of publishers
   std::mutex mutex_;
