@@ -121,6 +121,9 @@ CanDriver::CanDriver(const rclcpp::NodeOptions &options) : rclcpp::Node("can_nod
   // Setup Timers
   timer_service_ = create_wall_timer(100ms, std::bind(&CanDriver::timerServiceCallback, this));
   timer_flush_ = create_wall_timer(1ms, std::bind(&CanDriver::timerFlushCallback, this));
+
+  // Setup param callback
+  param_cb_ = add_on_set_parameters_callback(std::bind(&CanDriver::on_set_parameters, this, std::placeholders::_1));
 }
 
 CanDriver::~CanDriver() {
@@ -298,6 +301,27 @@ void CanDriver::timerServiceCallback() {
 
 void CanDriver::timerFlushCallback() {
   dev_->flushMessages();
+}
+
+rcl_interfaces::msg::SetParametersResult CanDriver::on_set_parameters(const std::vector<rclcpp::Parameter> &parameters) {
+  rcl_interfaces::msg::SetParametersResult result;
+  result.successful = true;
+  for (const auto &param : parameters) {
+    for (unsigned int i = 1; i < CanUsb::MAX_CHANNELS+1; i++) {
+      if (param.get_name() == "bitrate_" + std::to_string(i)) {
+        if (param.as_int() < 0) {
+          result.successful = false;
+        } else {
+          channels_[i-1].bitrate = param.as_int();
+          result.successful = dev_->setBitrate(i-1, channels_[i-1].bitrate, channels_[i-1].mode);
+          if (result.successful) {
+            RCLCPP_INFO(get_logger(), "%s: Ch%u %ldkbps", name_.c_str(), i, param.as_int() / 1000);
+          }
+        }
+      }
+    }
+  }
+  return result;
 }
 
 } // namespace dataspeed_can_usb
